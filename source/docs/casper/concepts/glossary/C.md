@@ -25,10 +25,6 @@ Correct-by-construction (CBC) protocols are consensus protocols meeting the foll
 
 A collection of configuration settings describing the state of the system at genesis and upgrades to basic system functionality (including system contracts and gas costs) occurring after [genesis](./G.md#genesis). Here is an example [chainspec](https://github.com/casper-network/casper-node/blob/release-1.4.8/resources/production/chainspec.toml), which will change with newer releases.
 
-## Consensus {#consensus}
-
-An algorithm used to mandate agreement on the [blockchain](./B.md#blockchain) between all nodes. The blockchain, although being built in a decentralized way, eventually converges so that all nodes eventually agree on whether a given block is part of the chain or not.
-
 Casper uses the Highway algorithm in the _CBC Casper_ family of consensus algorithms. The algorithm for securing an agreement is what is known as _consensus_. The consensus layer contains the algorithm, but the algorithm should not be confused with the consensus layer.
 
 ## Contract runtime {#contract-runtime}
