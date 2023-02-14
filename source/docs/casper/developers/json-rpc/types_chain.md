@@ -133,6 +133,16 @@ The status of the block synchronizer.
     * `block_height` The height of the block, if known.
 
     * `acquisition_state` The state of acquisition of the data associated with the block.
+    
+## ChainspecRawBytes {#chainspecrawbytes}
+
+The raw bytes of the chainspec.toml, genesis accounts.toml, and global_state.toml files.
+
+* `chainspec_bytes` Hex-encoded raw bytes of the current chainspec.toml file.
+
+* `maybe_genesis_accounts_bytes` Hex-encoded raw bytes of the current genesis accounts.toml file.
+
+* `maybe_global_state_bytes` Hex-encoded raw bytes of the current global_state.toml file.
 
 ## Contract {#contract} 
 
