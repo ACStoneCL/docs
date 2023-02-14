@@ -74,6 +74,12 @@ Required Parameters:
 
 * [`state_root_hash`](#digest) Global state hash.
 
+## AvailableBlockRange {#availableblockrange}
+
+* `low` The inclusive lower bound of the range.
+
+* `high` The inclusive upper bound of the range.
+
 ## Bid {#bid}
 
 An entry in the validator map.
@@ -108,7 +114,27 @@ Identifier for possible ways to retrieve a Block.
 
 * `Height` Identify and retrieve the Block with its height.
 
-## Contract {#contract}
+## BlockSynchronizerStatus {#blocksynchronizerstatus}
+
+The status of the block synchronizer.
+
+* `Historical` The status of syncing a historical block, if any.
+
+    * [`block_hash`](#blockhash-blockhash) The block hash.
+
+    * `block_height` The height of the block, if known.
+
+    * `acquisition_state` The state of acquisition of hte data associated with the block.
+
+* `Forward` The status of syncing a forward block, if any.
+
+    * [`block_hash`](#blockhash-blockhash) The block hash.
+
+    * `block_height` The height of the block, if known.
+
+    * `acquisition_state` The state of acquisition of hte data associated with the block.
+
+## Contract {#contract} 
 
 A contract struct that can be serialized as a JSON object.
 
@@ -751,6 +777,22 @@ The identifier to obtain the purse corresponding to a balance query. Valid ident
 * `main_purse_under_account_hash` The main purse under a provided [`AccountHash`](./types_chain.md#accounthash).
 
 * `purse_uref` A specific purse identified by the associated [`URef`](./types_chain.md#uref).
+
+## ReactorState {#reactorstate}
+
+The state of the reactor, which will return one of the following:
+
+* `Initialize`
+
+* `CatchUp`
+
+* `Upgrading`
+
+* `KeepUp`
+
+* `Validate`
+
+* `ShutdownForUpgrade`
 
 ## Reward {#reward}
 
