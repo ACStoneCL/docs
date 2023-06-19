@@ -371,58 +371,6 @@ This method returns a state root hash at a given [Block](../../concepts/design/c
 
 </details>
 
-## info_get_chainspec {#info-get-chainspec}
-
-This method returns raw bytes for chainspec files.
-
-<details>
-
-<summary><b>Example info_get_chainspec request</b></summary>
-
-```bash
-
-{
-  "jsonrpc": "2.0",
-  "method": "info_get_chainspec",
-  "id": 5510244237763930243
-}
-
-```
-
-</details>
-
-### `info_get_chainspec_result`
-
-|Parameter|Type|Description|
-|---------|----|-----------| 
-|api_version|String|The RPC API version.|
-|[chainspec_bytes](./types_chain.md#ChainspecRawBytes)|Object|The raw bytes of the chainspec.toml, genesis accounts.toml, and global_state.toml files.|
-
-<details>
-
-<summary><b>Example info_get_chainspec result</b></summary>
-
-Please note that adding a `--vv` flag will return the full chainspec bytes.
-
-```bash
-
-{
-  "jsonrpc": "2.0",
-  "result": {
-    "api_version": "1.5.0",
-    "chainspec_bytes": {
-      "chainspec_bytes": "[22040 hex chars]",
-      "maybe_genesis_accounts_bytes": null,
-      "maybe_global_state_bytes": null
-    }
-  },
-  "id": 5510244237763930243
-}
-
-```
-
-</details>
-
 ## info_get_deploy {#info-get-deploy}
 
 This method retrieves a [Deploy](../../concepts/design/casper-design.md#execution-semantics-deploys) from a network. It requires a `deploy_hash` to query the Deploy.
@@ -570,11 +518,76 @@ If the `execution_results` field is empty, it means that the network processed t
 
 </details>
 
+## query_balance {#query-balance}
+
+This method allows you to query for the balance of a purse using a `PurseIdentifier` and `StateIdentifier`.
+
+|Parameter|Type|Description|
+|---------|----|-----------|
+|[purse_identifier](/dapp-dev-guide/sdkspec/types_chain#purseidentifier)|Object|The identifier to obtain the purse corresponding to balance query.|
+|[state_identifier](/dapp-dev-guide/sdkspec/types_chain#globalstateidentifier)|Object|The state identifier used for the query; if none is passed the tip of the chain will be used.|
+
+<details>
+
+<summary><b>Example query_balance request</b></summary>
+
+```bash
+{
+  "id": 1,
+  "jsonrpc": "2.0",
+  "method": "query_balance",
+  "params": [
+      {
+        "name": "state_identifier",
+        "value": {
+          "BlockHash": "13c2d7a68ecdd4b74bf4393c88915c836c863fc4bf11d7f2bd930a1bbccacdcb"
+        }
+    },
+      {
+        "name": "purse_identifier",
+        "value": {
+          "main_purse_under_account_hash": "account-hash-0909090909090909090909090909090909090909090909090909090909090909"
+        }
+      }
+    ]
+}
+
+```
+
+</details>
+
+
+### `query_balance_result`
+
+|Parameter|Type|Description|
+|---------|----|-----------|     
+|api_version|String|The RPC API version.|
+|[balance](/dapp-dev-guide/sdkspec/types_chain#u512)|Object|The balance represented in motes.|
+
+<details>
+
+<summary><b>Example query_balance result</b></summary>
+
+```bash
+
+{
+  "jsonrpc": "2.0",
+  "id": -6143675785141640608,
+  "result": {
+    "api_version": "1.0.0",
+    "balance": "1000000000000000000000000000000000"
+  }
+}
+
+```
+
+</details>
+
 ## query_global_state {#query-global-state}
 
 This method allows for you to query for a value stored under certain keys in global state. You may query using either a [Block hash](../../concepts/design/casper-design.md#block_hash) or state root hash.
 
-* Note: Querying a purse's balance requires the use of `state_get_balance` rather than any iteration of `query_global_state`.
+* Note: Querying a purse's balance requires the use of `state_get_balance` or `query_balance`, rather than any iteration of `query_global_state`.
 
 |Parameter|Type|Description|
 |---------|----|-----------|   
@@ -1002,31 +1015,51 @@ This method returns the current status of a node.
   "id": 1,
   "jsonrpc": "2.0",
   "result": {
-    "api_version": "1.4.13",
-    "build_version": "1.4.13-c8db6a737-casper-mainnet",
+    "name": "info_get_status_result",
+    "value": {
+      "peers": [
+      {
+        "node_id": "tls:0101..0101",
+        "address": "127.0.0.1:54321"
+      }
+    ],
+    "api_version": "1.4.8",
+    "build_version": "1.0.0-xxxxxxxxx@DEBUG",
     "chainspec_name": "casper-example",
+    "starting_state_root_hash": null,
     "last_added_block_info": {
-      "creator": "01d9bf2148748a85c89da5aad8ee0b0fc2d105fd39d41a4c796536354f0ae2900c",
-      "era_id": 1,
       "hash": "13c2d7a68ecdd4b74bf4393c88915c836c863fc4bf11d7f2bd930a1bbccacdcb",
+      "timestamp": "2020-11-17T00:39:24.072Z",
+      "era_id": 1,
       "height": 10,
       "state_root_hash": "0808080808080808080808080808080808080808080808080808080808080808",
-      "timestamp": "2020-11-17T00:39:24.072Z"
+      "creator": "01d9bf2148748a85c89da5aad8ee0b0fc2d105fd39d41a4c796536354f0ae2900c"
     },
+    "our_public_signing_key": "01d9bf2148748a85c89da5aad8ee0b0fc2d105fd39d41a4c796536354f0ae2900c",
+    "round_length": "1m 5s 536ms",
     "next_upgrade": {
       "activation_point": 42,
       "protocol_version": "2.0.1"
     },
-    "our_public_signing_key": "01d9bf2148748a85c89da5aad8ee0b0fc2d105fd39d41a4c796536354f0ae2900c",
-    "peers": [
-      {
-        "address": "127.0.0.1:54321",
-        "node_id": "tls:0101..0101"
+    "uptime": "13s",
+    "reactor_state": "Initialize",
+    "last_progress": "1970-01-01T00:00:00.000Z",
+    "available_block_range": {
+      "low": 0,
+      "high": 0
+    },
+    "block_sync": {
+      "historical": {
+        "block_hash": "16ddf28e2b3d2e17f4cef36f8b58827eca917af225d139b0c77df3b4a67dc55e",
+        "block_height": 40,
+        "acquisition_state": "have strict finality(40) for: block hash 16dd..c55e"
+      },
+      "forward": {
+        "block_hash": "59907b1e32a9158169c4d89d9ce5ac9164fc31240bfcfb0969227ece06d74983",
+        "block_height": 6701,
+        "acquisition_state": "have block body(6701) for: block hash 5990..4983"
       }
-    ],
-    "round_length": "1m 5s 536ms",
-    "starting_state_root_hash": "0202020202020202020202020202020202020202020202020202020202020202",
-    "uptime": "13s"
+    }
   }
 }
 
