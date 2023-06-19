@@ -518,11 +518,76 @@ If the `execution_results` field is empty, it means that the network processed t
 
 </details>
 
+## query_balance {#query-balance}
+
+This method allows you to query for the balance of a purse using a `PurseIdentifier` and `StateIdentifier`.
+
+|Parameter|Type|Description|
+|---------|----|-----------|
+|[purse_identifier](/dapp-dev-guide/sdkspec/types_chain#purseidentifier)|Object|The identifier to obtain the purse corresponding to balance query.|
+|[state_identifier](/dapp-dev-guide/sdkspec/types_chain#globalstateidentifier)|Object|The state identifier used for the query; if none is passed the tip of the chain will be used.|
+
+<details>
+
+<summary><b>Example query_balance request</b></summary>
+
+```bash
+{
+  "id": 1,
+  "jsonrpc": "2.0",
+  "method": "query_balance",
+  "params": [
+      {
+        "name": "state_identifier",
+        "value": {
+          "BlockHash": "13c2d7a68ecdd4b74bf4393c88915c836c863fc4bf11d7f2bd930a1bbccacdcb"
+        }
+    },
+      {
+        "name": "purse_identifier",
+        "value": {
+          "main_purse_under_account_hash": "account-hash-0909090909090909090909090909090909090909090909090909090909090909"
+        }
+      }
+    ]
+}
+
+```
+
+</details>
+
+
+### `query_balance_result`
+
+|Parameter|Type|Description|
+|---------|----|-----------|     
+|api_version|String|The RPC API version.|
+|[balance](/dapp-dev-guide/sdkspec/types_chain#u512)|Object|The balance represented in motes.|
+
+<details>
+
+<summary><b>Example query_balance result</b></summary>
+
+```bash
+
+{
+  "jsonrpc": "2.0",
+  "id": -6143675785141640608,
+  "result": {
+    "api_version": "1.0.0",
+    "balance": "1000000000000000000000000000000000"
+  }
+}
+
+```
+
+</details>
+
 ## query_global_state {#query-global-state}
 
 This method allows for you to query for a value stored under certain keys in global state. You may query using either a [Block hash](../../concepts/design/casper-design.md#block_hash) or state root hash.
 
-* Note: Querying a purse's balance requires the use of `state_get_balance` rather than any iteration of `query_global_state`.
+* Note: Querying a purse's balance requires the use of `state_get_balance` or `query_balance`, rather than any iteration of `query_global_state`.
 
 |Parameter|Type|Description|
 |---------|----|-----------|   
