@@ -167,6 +167,9 @@ module.exports = {
                 "developers/dapps/setup-nctl",
                 "developers/dapps/nctl-test",
                 //"developers/dapps/signer-integration",
+                "developers/dapps/sending-deploys",
+                "developers/dapps/speculative-exec.md",
+                //"developers/dapps/using-casper-signer", // NEW CONTENT WILL BE HERE
                 //"developers/dapps/callstack-based", // NEW CONTENT WILL BE HERE
                 "developers/dapps/monitor-and-consume-events",
             ],
