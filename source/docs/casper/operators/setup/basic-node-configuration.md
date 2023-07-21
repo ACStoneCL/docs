@@ -176,7 +176,6 @@ Node operators may also change the incoming request port for speculative executi
 <summary><b>Example Config.toml configuration with speculative execution enabled</b>b></summary>
     
 ```
-
 # ========================================================================
 # Configuration options for the speculative execution JSON-RPC HTTP server
 # ========================================================================
@@ -208,7 +207,6 @@ max_body_bytes = 2_621_440
 # If set to '*', any origin is allowed.
 # Otherwise, only a specified origin is allowed. The given string must conform to the [origin scheme](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Origin).
 cors_origin = ''
-
 ```
 
 </details>
@@ -234,3 +232,9 @@ sudo -u casper casper-client keygen --help
 More about keys and key generation can also be found in `/etc/casper/validator_keys/README.md` if the `casper-node-launcher` was installed from the Debian package.
 
 To submit a bonding request, you will need to [fund your account](../../developers/prerequisites.md#fund-your-account) as well.
+
+:::note
+
+Save your keys in a secure location, preferably offline.
+
+:::
