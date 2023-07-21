@@ -238,3 +238,4 @@ To submit a bonding request, you will need to [fund your account](../../develope
 Save your keys in a secure location, preferably offline.
 
 :::
+
